@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block page_title %}
+    Prediction Result
+    {{page_title}}
+{% endblock page_title %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "herart_ml_app/result.css" %}">
+    <link rel="stylesheet" href="{% static "herart_ml_app/includes/header.css" %}">
+{% endblock css_files %}
+
+{% block content %}
+{% include "herart_ml_app/includes/header.html" %}
+    <div class="result-container">
+    <div class="result-circle status-high">
+        !
+    </div>
+
+    <h1>High Risk Detected</h1>
+    
+    <p class="probability">The model predicts a <b>87%</b> probability of heart disease based on the parameters provided.</p>
+
+    <table class="summary-table">
+        <tr>
+            <td>Age / Sex</td>
+            <td>58 / Male</td>
+        </tr>
+        <tr>
+            <td>Chest Pain Type</td>
+            <td>Typical Angina</td>
+        </tr>
+        <tr>
+            <td>Resting Blood Pressure</td>
+            <td>145 mmHg</td>
+        </tr>
+        <tr>
+            <td>Serum Cholesterol</td>
+            <td>233 mg/dl</td>
+        </tr>
+        <tr>
+            <td>Max Heart Rate</td>
+            <td>150 bpm</td>
+        </tr>
+    </table>
+
+    <a href="/" class="btn-back">Perform Another Prediction</a>
+
+    <p class="disclaimer">
+        Disclaimer: This is a machine learning demonstration based on a static dataset. 
+        It should not be used as a substitute for professional medical advice.
+    </p>
+</div>
+
+{% endblock content %}

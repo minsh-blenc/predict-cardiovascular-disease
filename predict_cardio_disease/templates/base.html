@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}{% endblock page_title %}</title>
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    {% block css_files %}{% endblock css_files %}
+</head>
+<body>
+    {% block content %}
+    <div class="scene-container">
+        <div class="network-grid"></div>
+        <div class="heart-visual">
+            <svg viewBox="0 0 32 32">
+                <path d="M16,28.261c-0.166,0-0.332-0.034-0.482-0.103c-0.211-0.098-5.388-2.524-9.352-6.488C2.16,17.664,1.968,13.84,1.968,11.859
+                c0-4.008,3.261-7.269,7.269-7.269c2.31,0,4.364,1.082,5.703,2.782c1.32-1.7,3.374-2.782,5.684-2.782c4.008,0,7.269,3.261,7.269,7.269
+                c0,1.98-0.192,5.805-4.201,9.814c-3.964,3.964-9.141,6.391-9.352,6.488C16.332,28.227,16.166,28.261,16,28.261z"/>
+            </svg>
+        </div>
+    </div>
+    
+    {% endblock content %}
+</body>
+</html>
