@@ -39,8 +39,21 @@ def result(request):
     prediction_report = heart_disease_model.load_and_predict()
     print(new_patient)
     print(prediction_report)
+    context = {
+        'patient_details':{
+            'name':new_patient.name,
+            'age': new_patient.age,
+            'gender': new_patient.sex,
+            'chest_pain_type': new_patient.cest_pain_type,
+            'rest_bp': new_patient.resting_blood_pressure,
+            'chol': new_patient.cholestrol,
+            'max_heart_rate': new_patient.max_heart_rate
+        },
+        'prediction_status': prediction_report['status'],
+        'prediction_score': prediction_report['score']
+    }
     template = loader.get_template('herart_ml_app/result.html')
-    return HttpResponse(template.render())
+    return HttpResponse(template.render(context=context))
 
 
 

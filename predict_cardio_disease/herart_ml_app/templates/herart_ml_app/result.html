@@ -13,38 +13,56 @@
 {% block content %}
 {% include "herart_ml_app/includes/header.html" %}
     <div class="result-container">
-    <div class="result-circle status-high">
-        !
-    </div>
-
-    <h1>High Risk Detected</h1>
-    
-    <p class="probability">The model predicts a <b>87%</b> probability of heart disease based on the parameters provided.</p>
+        {% if prediction_status == "Healthy" and prediction_score >= 60%}
+            <div class="result-circle status-low">
+                ✔
+            </div>  
+            <h1>Patient is {{prediction_status}} and no major Heart disease is detected.</h1>
+            <p class="probability">The model predicts a <b>{{prediction_score}}%</b> probability of no heart disease based on the parameters provided.</p>
+        {% elif  prediction_status == "Healthy" and prediction_score < 60%}
+            <div class="result-circle status-moderate">
+                ⚠️
+            </div>
+            <h1>Moderate Risk Detected({{prediction_status}})</h1>
+            <h1>Patient is {{prediction_status}} and no major Heart disease is detected.</h1>
+            <p class="probability">The model predicts a <b>{{prediction_score}}%</b> probability of no heart disease based on the parameters provided. But there is a moderate risk please consult with the doctor for it.</p>
+        {% else%}
+            <div class="result-circle status-high">
+                !
+            </div>
+            <h1>High Risk Detected({{prediction_status}})</h1>
+            <h1>Patient is {{prediction_status}}.</h1>
+            <p class="probability">The model predicts a <b>{{prediction_score}}%</b> probability of heart disease based on the parameters provided. Please consult with the doctor as soon as possible.</p>
+        {% endif %}
 
     <table class="summary-table">
         <tr>
+            <td>Name</td>
+            <td>{{patient_details.name}}</td>
+        </tr>
+        <tr>
             <td>Age / Sex</td>
-            <td>58 / Male</td>
+            <td>{{patient_details.age}} / {{patient_details.gender}}</td>
         </tr>
         <tr>
             <td>Chest Pain Type</td>
-            <td>Typical Angina</td>
+            <td>{{patient_details.chest_pain_type}}</td>
         </tr>
         <tr>
             <td>Resting Blood Pressure</td>
-            <td>145 mmHg</td>
+            <td>{{patient_details.rest_bp}} mmHg</td>
         </tr>
         <tr>
             <td>Serum Cholesterol</td>
-            <td>233 mg/dl</td>
+            <td>{{patient_details.chol}} mg/dl</td>
         </tr>
         <tr>
             <td>Max Heart Rate</td>
-            <td>150 bpm</td>
+            <td>{{patient_details.max_heart_rate}} bpm</td>
         </tr>
     </table>
 
-    <a href="/" class="btn-back">Perform Another Prediction</a>
+    <a href={% url "predict" %} class="btn-back">Perform Another Prediction</a>
 
     <p class="disclaimer">
         Disclaimer: This is a machine learning demonstration based on a static dataset. 
