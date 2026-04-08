@@ -46,6 +46,10 @@ class Patient:
     def sex(self):
         sex_value = "Male" if self._sex else "Female"
         return sex_value
+    
+    @property
+    def raw_prop_sex(self):
+        return int(self._sex)
 
     @sex.setter
     def sex(self, value):
@@ -55,6 +59,10 @@ class Patient:
     def cest_pain_type(self):
         pain_type = ['Typical Angina', 'Atypical Angina', 'Non-anginal Pain', 'Asymptomatic']
         return pain_type[self._cest_pain_type]
+    
+    @property
+    def raw_prop_cest_pain_type(self):
+        return self._cest_pain_type
 
     @cest_pain_type.setter
     def cest_pain_type(self, value):
@@ -89,6 +97,10 @@ class Patient:
     def fasting_blood_sugar(self):
         is_blood_sugar = "Positive" if self._fasting_blood_sugar else "Negative"
         return is_blood_sugar
+    
+    @property
+    def raw_prop_fasting_blood_sugar(self):
+        return int(self._fasting_blood_sugar)
 
     @fasting_blood_sugar.setter
     def fasting_blood_sugar(self, value):
@@ -99,6 +111,10 @@ class Patient:
         ecg = ['Normal', 'ST-T Wave Abnormality', 'Left Ventricular Hypertrophy']
         return ecg[self._rest_ecg]
 
+    @property
+    def raw_prop_rest_ecg(self):
+        return self._rest_ecg
+    
     @rest_ecg.setter
     def rest_ecg(self, value):
         if 0 <= int(value) <= 2:
@@ -121,6 +137,10 @@ class Patient:
     def exercise_induced_angina(self):
         induce_angina = "Yes" if self._exercise_induced_angina else "No"
         return induce_angina
+    
+    @property
+    def raw_prop_exercise_induced_angina(self):
+        return int(self._exercise_induced_angina)
 
     @exercise_induced_angina.setter
     def exercise_induced_angina(self, value):
@@ -138,6 +158,10 @@ class Patient:
     def slope(self):
         slope_status = ['Upsloping', 'Flat', 'Downsloping']
         return slope_status[self._slope]
+    
+    @property
+    def raw_prop_slope(self):
+        return self._slope
 
     @slope.setter
     def slope(self, value):
@@ -161,6 +185,10 @@ class Patient:
     def thallium_stress_test(self):
         thallium_test = ['Unknown/Other', 'Normal', 'Fixed Defect', 'Reversable Defect']
         return thallium_test[self._thallium_stress_test]
+    
+    @property
+    def raw_prop_thallium_stress_test(self):
+        return self._thallium_stress_test
 
     @thallium_stress_test.setter
     def thallium_stress_test(self, value):

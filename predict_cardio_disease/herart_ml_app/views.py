@@ -3,6 +3,7 @@ from django.template import loader
 from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from .Patient import Patient
+from .ml_model_utils.cardio_disease_predict import HeartDiseaseModel
 
 # Create your views here.
 
@@ -34,7 +35,10 @@ def result(request):
         new_patient.thallium_stress_test = request.POST.get('thal')
         #new_patient.prediction_result = request.POST.get('age')
 
+    heart_disease_model = HeartDiseaseModel(new_patient)
+    prediction_report = heart_disease_model.load_and_predict()
     print(new_patient)
+    print(prediction_report)
     template = loader.get_template('herart_ml_app/result.html')
     return HttpResponse(template.render())
 
