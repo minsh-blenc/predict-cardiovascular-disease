@@ -33,6 +33,7 @@ class HeartDiseaseModel:
         
             # 3. Get input from the patient class and predict
             input_data = self.scaler.transform(self.get_features_array())
+            print(self.get_features_array())
             print(input_data)
             prediction = model.predict(input_data)[0]
             print("Prediction:", model.predict(input_data))
