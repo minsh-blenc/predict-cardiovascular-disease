@@ -1,11 +1,13 @@
 import pickle
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 from ..Patient import Patient
 
 class HeartDiseaseModel:
     patient_data = Patient()
     def __init__(self, patient_data):
         self.model_path = './prediction_model/heart_disease_prediction_model.pkl'
+        self.scaler = None
         self.features = [
             patient_data.age,patient_data.raw_prop_sex,patient_data.raw_prop_cest_pain_type,
             patient_data.resting_blood_pressure,patient_data.cholestrol,
@@ -25,12 +27,17 @@ class HeartDiseaseModel:
             # 2. Load the pickle file
             with open('herart_ml_app\ml_model_utils\prediction_model\heart_disease_prediction_model.pkl', 'rb') as file:
                 model = pickle.load(file)
+            
+            with open('herart_ml_app\ml_model_utils\prediction_model\heart_disease_prediction_scaler.pkl', 'rb') as file:
+                self.scaler = pickle.load(file)
         
             # 3. Get input from the patient class and predict
-            input_data = self.get_features_array()
+            input_data = self.scaler.transform(self.get_features_array())
             print(input_data)
             prediction = model.predict(input_data)[0]
+            print("Prediction:", model.predict(input_data))
             probabilities = model.predict_proba(input_data)[0]
+            print("Probability:", model.predict_proba(input_data))
             confidence = probabilities[prediction] * 100
 
             

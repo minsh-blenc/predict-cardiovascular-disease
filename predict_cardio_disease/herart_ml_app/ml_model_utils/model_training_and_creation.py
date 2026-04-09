@@ -48,15 +48,19 @@ class HeartDiseaseModelTrain:
         print(f"Accuracy Score: {accuracy_score(self.y_test, y_pred):.2f}")
         print("\nClassification Report:\n", classification_report(self.y_test, y_pred))
         print("\nConfusion Matrix:\n", confusion_matrix(self.y_test, y_pred))
-        confus_matrix = pd.DataFrame(confusion_matrix(self.y_test, y_pred))
-        confus_matrix = confus_matrix.to_dict(orient='records')
+        confus_matrix = pd.DataFrame(
+            confusion_matrix(self.y_test, y_pred),
+            columns=['Predictive Positive', 'Predictive Negative'], 
+            index=['Actual Positive', 'Actual Negative']
+        )
+        confus_matrix = confus_matrix.to_dict(orient='index')
 
         model_specs = {
-            'Model Training Date': str(datetime.now()),
-            'Model Accuracy': f"Accuracy Score: {accuracy_score(self.y_test, y_pred):.2f}",
-            'Model Classification Report': classification_report(
+            'model_training_date': str(datetime.now()),
+            'model_accuracy': f"{accuracy_score(self.y_test, y_pred):.2f}",
+            'model_classification_report': classification_report(
                 self.y_test, y_pred, output_dict=True),
-            'Model Confusion Matrix' : confus_matrix
+            'model_confusion_matrix' : confus_matrix
         }
 
         with open("./prediction_model/model_specs.json", "w") as file:
@@ -65,6 +69,9 @@ class HeartDiseaseModelTrain:
     def create_model(self):
         with open('./prediction_model/heart_disease_prediction_model.pkl', 'wb') as f:
             pickle.dump(self.model, f)
+        
+        with open('./prediction_model/heart_disease_prediction_scaler.pkl', 'wb') as f:
+            pickle.dump(self.scaler, f)
 
     def execute_model_training(self):
         print("---Executing Model Training---")
@@ -73,6 +80,13 @@ class HeartDiseaseModelTrain:
         self.evaluate()
         self.create_model()
         print("--- Model Training has been Completed ---")
+    
+def main():
+    model_train = HeartDiseaseModelTrain()
+    model_train.execute_model_training()
+
+if __name__ == "__main__":
+    main()
 
 
         

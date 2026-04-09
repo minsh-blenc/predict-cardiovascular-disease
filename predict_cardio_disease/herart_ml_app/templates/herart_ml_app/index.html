@@ -32,17 +32,57 @@ HEART INSIGHT - Advanced Heart Disease Prediction
 
                 <div class="hero-visual-panel">
                     <div class="data-stream">
-                        // Loading Model_Weights... OK<br>
-                        // Establishing Secure_Connection... OK<br>
-                        // Awaiting_Patient_Metrics... STANDBY<br>
-                        > ERR_NO_DATA_INPUT<br>
-                        > system.state = IDLE<br>
-                        // Analysis_Ready...
+                        <p>Model Training Date: {{model_training_date}}</p><br>
+                        {% comment %} <p>Model Training Date: {{model_classification_report}}</p><br> {% endcomment %}
+                        <p><center>Confusion Matrix</center></p><br>
+                        <center>
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th>Matrix Heads</th>
+                                    {% for col in model_confusion_matrix.columns %}
+                                        <th>{{ col }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for index, row in model_confusion_matrix.iterrows %}
+                                    <tr>
+                                        <td>{{ index }}</td>
+                                        {% for value in row %}
+                                            <td>{{ value }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </center>
+                        <br>
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th>Classification</th>
+                                    {% for col in model_classification_report.columns %}
+                                        <th>{{ col }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for index, row in model_classification_report.iterrows %}
+                                    <tr>
+                                        <td>{{ index }}</td>
+                                        {% for value in row %}
+                                            <td>{{ value }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                     <div class="panel-stats">
                         <div class="stat-card">
                             <div class="stat-label">Model Accuracy</div>
-                            <div class="stat-value">94.2%</div>
+                            <div class="stat-value">{{model_accuracy}}%</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-label">Data Points</div>

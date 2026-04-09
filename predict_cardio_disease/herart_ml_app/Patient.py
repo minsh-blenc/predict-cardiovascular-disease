@@ -53,7 +53,7 @@ class Patient:
 
     @sex.setter
     def sex(self, value):
-        self._sex = bool(value)
+        self._sex = bool(int(value))
 
     @property
     def cest_pain_type(self):
@@ -104,7 +104,7 @@ class Patient:
 
     @fasting_blood_sugar.setter
     def fasting_blood_sugar(self, value):
-        self._fasting_blood_sugar = bool(value)
+        self._fasting_blood_sugar = bool(int(value))
 
     @property
     def rest_ecg(self):
@@ -144,7 +144,7 @@ class Patient:
 
     @exercise_induced_angina.setter
     def exercise_induced_angina(self, value):
-        self._exercise_induced_angina = bool(value)
+        self._exercise_induced_angina = bool(int(value))
 
     @property
     def oldpeak(self):
@@ -204,7 +204,7 @@ class Patient:
 
     @prediction_result.setter
     def prediction_result(self, value):
-        self._prediction_result = bool(value)
+        self._prediction_result = bool(int(value))
 
     # --- String Representation ---
 

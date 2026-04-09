@@ -5,11 +5,36 @@ from django.views.decorators.csrf import csrf_exempt
 from .Patient import Patient
 from .ml_model_utils.cardio_disease_predict import HeartDiseaseModel
 
+import json
+from datetime import datetime
+import pandas as pd
+
+# views utils functions
+def model_spec_json_obj():
+    with open('herart_ml_app\ml_model_utils\prediction_model\model_specs.json', 'r') as file:
+        json_data = json.load(file)
+    print(json_data)
+    json_data['model_training_date']
+    model_specs = {
+        'model_training_date' : datetime.strptime(
+            json_data['model_training_date'], 
+            "%Y-%m-%d %H:%M:%S.%f"
+        ),
+        'model_accuracy': float(json_data['model_accuracy'])*100,
+        'model_classification_report': pd.DataFrame(
+            json_data['model_classification_report']
+        ).transpose(),
+        'model_confusion_matrix': pd.DataFrame(json_data['model_confusion_matrix'])
+    }
+
+    return model_specs
+
 # Create your views here.
 
 def index(request):
+    model_specs_context = model_spec_json_obj()
     template = loader.get_template('herart_ml_app/index.html')
-    return HttpResponse(template.render())
+    return HttpResponse(template.render(context=model_specs_context))
 
 def prediction(request):
     template = loader.get_template('herart_ml_app/prediction.html')
